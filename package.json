@@ -24,6 +24,8 @@
   "homepage": "https://github.com/ihor-pyvovarnyk/events-slides#readme",
   "dependencies": {
     "jsdom": "^9.5.0",
-    "lodash": "^4.15.0"
+    "lodash": "^4.15.0",
+    "moment": "^2.14.1",
+    "sprintf": "^0.1.5"
   }
 }
