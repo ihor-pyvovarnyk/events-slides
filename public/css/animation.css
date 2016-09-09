@@ -1,5 +1,5 @@
 #app-container .slide.default {
-    transition: 1s ease-in all;
+    transition: 1.5s ease-in all;
 }
 #app-container .slide.default.ng-enter,
 #app-container .slide.default.ng-leave.ng-leave-active {
@@ -13,7 +13,7 @@
 }
 
 #app-container .slide:not(.default) {
-    transition: 1s ease-in-out all;
+    transition: 1.5s ease-in-out all;
 }
 #app-container .slide:not(.default).ng-enter,
 #app-container .slide:not(.default).ng-leave.ng-leave-active {
@@ -27,7 +27,7 @@
 }
 
 #app-container .slide:not(.default) .table-disp {
-    transition: 1s ease-in all;
+    transition: 1.5s ease-in all;
 }
 #app-container .slide:not(.default) .table-disp.ng-enter,
 #app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active {
@@ -45,18 +45,18 @@
 }
 #app-container .slide:not(.default) .table-disp.ng-enter-active .inner .inforow {
     transform: translate(0, 0) scale(1, 1);
-    transition: 1s ease-out all;
+    transition: 1.5s ease-out all;
 }
 #app-container .slide:not(.default) .table-disp.ng-leave .inner .inforow {
     transform: translate(0, 0) scale(1, 1);
 }
 #app-container .slide:not(.default) .table-disp.ng-leave-active .inner .inforow {
     transform: translate(0, -200vh) scale(2, 2);
-    transition: 1s ease-out all;
+    transition: 1.5s ease-in-out all;
 }
 
 #app-container .slide:not(.default) .table-disp .inner iframe.event-map {
-    transition: 1s ease-out bottom;
+    transition: 1.5s ease-in-out bottom;
 }
 #app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active .inner iframe.event-map {
     bottom: -50vh;
