@@ -1,5 +1,3 @@
-
-
 #app-container .slide.default {
     transition: 1s ease-in all;
 }
@@ -61,16 +59,16 @@
     transition: 1s ease-out bottom;
 }
 #app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active .inner iframe.event-map {
-    bottom: -450px;
+    bottom: -50vh;
 }
 #app-container .slide:not(.default) .table-disp.ng-leave .inner iframe.event-map {
     bottom: 0px;
 }
 
 @keyframes map-appearing {
-    from {bottom: -450px; opacity: 0;}
-    50%  {bottom: -450px; opacity: 0;}
-    100% {bottom: 0px; opacity: 1;}
+    from {bottom: -50vh; opacity: 0;}
+    50%  {bottom: -50vh; opacity: 0;}
+    100% {bottom: 0vh; opacity: 1;}
 }
 #app-container .slide .inner iframe.event-map {
     animation: map-appearing 3s;

@@ -80,7 +80,7 @@ body {
 }
 
 #app-container .slide:not(.default) .inner {
-    padding-bottom: 450px;
+    padding-bottom: 50vh;
 }
 
 #app-container .slide.default {
@@ -110,7 +110,7 @@ body {
     right: 0;
     left: 0;
     width: 100%;
-    height: 450px;
+    height: 50vh;
     border: 0;
 }
 
