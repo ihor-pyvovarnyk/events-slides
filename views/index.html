@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="EventsSlides">
+<head>
+    <meta charset="UTF-8">
+    <title>Події | Форум видавців</title>
+    <link href="http://bookforum.ua/favicon-32x32.png?v=bOOQ5rBv36" rel="icon" sizes="32x32" type="image/png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/animation.css" />
+</head>
+<body>
+
+<div id="app-container" ng-controller="appController">
+
+    <div class="slide default" ng-if="!event">
+        <div class="table-disp">
+            <div class="inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
+                            <img src="/img/logo.svg" alt="Bookforum" class="logo-img"/>
+                            <h1>Форум видавців</h1>
+                            <div class="progress" ng-if="isLoading">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                     aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+                                     ng-style="{width: loadingProgress + '%'}" style="width: 45%">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide" ng-if="event">
+        <div class="table-disp" ng-animate-swap="event">
+            <div class="inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-1 col-md-10">
+
+                            <div class="row inforow">
+                                <div class="col-md-2 date">
+                                    <h1>{{ formateDate(event.startTime) }}</h1>
+                                </div>
+                                <div class="col-md-10 otherinfo">
+                                    <h1>{{ event.title }}</h1>
+                                    <h4>{{ event.type }}</h4>
+                                    <div class="in-line-container">
+                                        <h5>{{ formatTimeRange(event.startTime, event.endTime) }}</h5>
+                                        <h5>{{ event.location }}</h5>
+                                        <h5>{{ event.locationName }}</h5>
+                                    </div>
+                                    <a ng-href="{{ event.link }}">{{ event.link }}</a>
+                                </div>
+                            </div>
+                            <div>
+                                <iframe class="event-map" frameborder="0" allowfullscreen
+                                        ng-src="{{ getGmapsIFrameAddress(event) }}"></iframe>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-sanitize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.0/moment.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/app-controller.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+@keyframes app-appearing {
+    0%   {opacity: 0;}
+    50%  {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+#app-container {
+    position: relative;
+    animation: app-appearing 1.5s;
+    width: 100%;
+    height: 100%;
+}
+
+#app-container .slide,
+#app-container .slide .table-disp {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+#app-container .slide .table-disp {
+    display: table;
+}
+
+#app-container .slide .inner {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+}
+
+#app-container .slide .inner .otherinfo .in-line-container {
+    display: inline-block;
+    width: 100%;
+}
+
+#app-container .slide .inner .otherinfo .in-line-container * {
+    float: left;
+    margin-right: 30px;
+}
+
+#app-container .slide:not(.default) .inner {
+    padding-bottom: 450px;
+}
+
+#app-container .slide.default {
+    font-family: 'Playfair Display', serif;
+    color: #48AB79;
+}
+
+#app-container .slide.default img.logo-img {
+    width: 100%;
+    height: auto;
+}
+
+#app-container .slide.default h1 {
+    text-align: center;
+    font-variant: small-caps;
+    letter-spacing: 3px;
+    font-size: 5em;
+}
+
+#app-container .slide.default .progress {
+    margin-top: 3em;
+}
+
+#app-container .slide .inner iframe.event-map {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 450px;
+    border: 0;
+}
+
+.progress {
+    border: 1px solid rgba(72, 171, 121, 0.2);
+    height: 7px;
+}
+
+.progress .progress-bar {
+    background-color: #48AB79;
+}

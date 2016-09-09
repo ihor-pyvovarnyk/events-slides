@@ -4,7 +4,7 @@
   "description": "Forum events slides application",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/ihor-pyvovarnyk/events-slides#readme",
   "dependencies": {
+    "express": "^4.14.0",
     "jsdom": "^9.5.0",
     "lodash": "^4.15.0",
     "moment": "^2.14.1",
