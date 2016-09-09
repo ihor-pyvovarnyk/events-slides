@@ -21,6 +21,11 @@ EventNodeParser.prototype.getEventObj = function () {
             return _.parseInt(d, 10);
         });
     });
+    var parseParticiants = function (string) {
+        return string.split(',').map(function (p) {
+            return p.trim();
+        });
+    }
     return {
         id:           _.parseInt(self.$event.data('event_id'), 10),
         title:        self._getText('.ev_info h3'),
@@ -31,7 +36,7 @@ EventNodeParser.prototype.getEventObj = function () {
         locationName: self._getText('.ev_info .ev_meta .ev_location_name'),
         details:      self._getDetailText('Детальніше'),
         organizer:    self._getDetailText('Організатор'),
-        participants: self._getDetailText('Учасники'),
+        participants: parseParticiants(self._getDetailText('Учасники')),
         link:         self._getDetailChildNodes('Лінк на цю подію').find('a.link').attr('href')
     };
 };
