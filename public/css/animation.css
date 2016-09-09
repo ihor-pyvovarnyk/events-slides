@@ -55,21 +55,28 @@
     transition: 1.5s ease-in-out all;
 }
 
-#app-container .slide:not(.default) .table-disp .inner iframe.event-map {
+#app-container .slide:not(.default) .table-disp .inner .event-map-container {
     transition: 1.5s ease-in-out bottom;
 }
-#app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active .inner iframe.event-map {
+#app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active .inner .event-map-container {
     bottom: -50vh;
 }
-#app-container .slide:not(.default) .table-disp.ng-leave .inner iframe.event-map {
+#app-container .slide:not(.default) .table-disp.ng-leave .inner .event-map-container {
     bottom: 0px;
 }
 
-@keyframes map-appearing {
-    from {bottom: -50vh; opacity: 0;}
-    50%  {bottom: -50vh; opacity: 0;}
-    100% {bottom: 0vh; opacity: 1;}
+@keyframes map-appearing-1 {
+    from {bottom: -50vh;}
+    to   {bottom: 0vh;}
 }
-#app-container .slide .inner iframe.event-map {
-    animation: map-appearing 3s;
+@keyframes map-appearing-2 {
+    0%   {opacity: 0;}
+    66%  {opacity: 0;}
+    100% {opacity: 1;}
+}
+#app-container .slide .inner .event-map-container {
+    animation: map-appearing-1 1.5s;
+}
+#app-container .slide .inner .event-map-container iframe.event-map {
+    animation: map-appearing-2 3s;
 }

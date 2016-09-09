@@ -104,7 +104,7 @@ body {
     margin-top: 3em;
 }
 
-#app-container .slide .inner iframe.event-map {
+#app-container .slide .inner .event-map-container {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -112,6 +112,12 @@ body {
     width: 100%;
     height: 50vh;
     border: 0;
+    background-color: #48AB79;
+}
+
+#app-container .slide .inner iframe.event-map {
+    height: 100%;
+    width: 100%;
 }
 
 .progress {
