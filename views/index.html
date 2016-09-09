@@ -5,6 +5,7 @@
     <title>Події | Форум видавців</title>
     <link href="http://bookforum.ua/favicon-32x32.png?v=bOOQ5rBv36" rel="icon" sizes="32x32" type="image/png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css" />
@@ -37,7 +38,7 @@
     </div>
 
     <div class="slide" ng-if="event">
-        <div class="table-disp" ng-animate-swap="event">
+        <div class="table-disp" ng-animate-swap="event.title">
             <div class="inner">
                 <div class="container">
                     <div class="row">
@@ -45,17 +46,17 @@
 
                             <div class="row inforow">
                                 <div class="col-md-2 date">
-                                    <h1>{{ formateDate(event.startTime) }}</h1>
+                                    <h1 ng-bind-html="formateDate(event.startTime)"></h1>
                                 </div>
                                 <div class="col-md-10 otherinfo">
                                     <h1>{{ event.title }}</h1>
                                     <h4>{{ event.type }}</h4>
                                     <div class="in-line-container">
-                                        <h5>{{ formatTimeRange(event.startTime, event.endTime) }}</h5>
-                                        <h5>{{ event.location }}</h5>
-                                        <h5>{{ event.locationName }}</h5>
+                                        <em class="fa fa-clock-o">{{ formatTimeRange(event.startTime, event.endTime) }}</em>
+                                        <em class="fa fa-map-marker">{{ event.location }}</em>
+                                        <em class="fa fa-location-arrow">{{ event.locationName }}</em>
                                     </div>
-                                    <a ng-href="{{ event.link }}">{{ event.link }}</a>
+                                    <a class="event-link" ng-href="{{ event.link }}">{{ event.link }}</a>
                                 </div>
                             </div>
                             <div>

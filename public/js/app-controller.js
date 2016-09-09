@@ -100,7 +100,7 @@ function AppController($scope, $http, $interval, $sce) {
         var month = date.month();
         var months = ['Січ', 'Лют', 'Бер', 'Квіт', 'Трав', 'Черв',
             'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд'];
-        return day + ' ' + months[month];
+        return $sce.trustAsHtml(day + ' <em>' + months[month] + '</em>');
     }
 
     function formatTimeRange(time1, time2) {

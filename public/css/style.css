@@ -19,6 +19,8 @@ body {
     animation: app-appearing 1.5s;
     width: 100%;
     height: 100%;
+    color: #6b6b6b;
+    font-family: 'PT Sans Narrow', sans-serif;
 }
 
 #app-container .slide,
@@ -30,7 +32,6 @@ body {
     top: 0;
     height: 100%;
     width: 100%;
-    font-family: 'PT Sans Narrow', sans-serif;
 }
 
 #app-container .slide .table-disp {
@@ -44,14 +45,38 @@ body {
     width: 100%;
 }
 
+#app-container .slide .inner .inforow .date  h1 {
+    font-family: 'Playfair Display', serif;
+    color: #ababab;
+    font-size: 7em;
+    line-height: 0.3em;
+    text-align: center;
+}
+
+#app-container .slide .inner .inforow .date h1 em {
+    font-size: 0.3em;
+}
+
+#app-container .slide .inner .otherinfo > h1 {
+    margin-top: 0;
+}
+
 #app-container .slide .inner .otherinfo .in-line-container {
     display: inline-block;
     width: 100%;
+    font-family: 'Playfair Display', serif;
 }
 
-#app-container .slide .inner .otherinfo .in-line-container * {
-    float: left;
-    margin-right: 30px;
+#app-container .slide .inner .otherinfo .in-line-container em {
+    margin-right: 10px;
+}
+#app-container .slide .inner .otherinfo .in-line-container em:before {
+    margin-right: 3px;
+}
+
+#app-container .slide .inner .otherinfo .event-link {
+    display: inline-block;
+    margin-top: 5px;
 }
 
 #app-container .slide:not(.default) .inner {
