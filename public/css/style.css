@@ -112,7 +112,7 @@ body {
     width: 100%;
     height: 50vh;
     border: 0;
-    background-color: #48AB79;
+    background-color: rgba(72, 171, 121, 0.6);
 }
 
 #app-container .slide .inner iframe.event-map {
