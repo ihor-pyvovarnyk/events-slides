@@ -1,82 +1,46 @@
-#app-container .slide.default {
-    transition: 1.5s ease-in all;
-}
-#app-container .slide.default.ng-enter,
-#app-container .slide.default.ng-leave.ng-leave-active {
-    opacity: 0;
-    transform: translate(0, -500vh) scale(5, 5);
-}
-#app-container .slide.default.ng-enter.ng-enter-active,
-#app-container .slide.default.ng-leave {
-    opacity: 1;
-    transform: translate(0, 0) scale(1, 1);
-}
-
-#app-container .slide:not(.default) {
-    transition: 1.5s ease-in-out all;
-}
-#app-container .slide:not(.default).ng-enter,
-#app-container .slide:not(.default).ng-leave.ng-leave-active {
-    opacity: 0;
-    transform: translate(0, 100vh);
-}
-#app-container .slide:not(.default).ng-enter.ng-enter-active,
-#app-container .slide:not(.default).ng-leave {
-    opacity: 1;
-    transform: translate(0, 0);
-}
-
-#app-container .slide:not(.default) .table-disp {
-    transition: 1.5s ease-in all;
-}
-#app-container .slide:not(.default) .table-disp.ng-enter,
-#app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active {
-    opacity: 0;
-}
-#app-container .slide:not(.default) .table-disp.ng-enter.ng-enter-active,
-#app-container .slide:not(.default) .table-disp.ng-leave {
-    opacity: 1;
-}
-#app-container .slide:not(.default) .table-disp .inner .inforow {
-    transform: translate(0, 0) scale(1, 1);
-}
-#app-container .slide:not(.default) .table-disp.ng-enter .inner .inforow {
-    transform: translate(0, 100vh) scale(1, 1);
-}
-#app-container .slide:not(.default) .table-disp.ng-enter-active .inner .inforow {
-    transform: translate(0, 0) scale(1, 1);
-    transition: 1.5s ease-out all;
-}
-#app-container .slide:not(.default) .table-disp.ng-leave .inner .inforow {
-    transform: translate(0, 0) scale(1, 1);
-}
-#app-container .slide:not(.default) .table-disp.ng-leave-active .inner .inforow {
-    transform: translate(0, -200vh) scale(2, 2);
-    transition: 1.5s ease-in-out all;
-}
-
-#app-container .slide:not(.default) .table-disp .inner .event-map-container {
-    transition: 1.5s ease-in-out bottom;
-}
-#app-container .slide:not(.default) .table-disp.ng-leave.ng-leave-active .inner .event-map-container {
-    bottom: -50vh;
-}
-#app-container .slide:not(.default) .table-disp.ng-leave .inner .event-map-container {
-    bottom: 0px;
-}
-
-@keyframes map-appearing-1 {
-    from {bottom: -50vh;}
-    to   {bottom: 0vh;}
-}
-@keyframes map-appearing-2 {
+@keyframes app-appearing {
     0%   {opacity: 0;}
-    66%  {opacity: 0;}
+    50%  {opacity: 0;}
     100% {opacity: 1;}
 }
-#app-container .slide .inner .event-map-container {
-    animation: map-appearing-1 1.5s;
+#app-container {
+    animation: app-appearing 1.5s;
 }
-#app-container .slide .inner .event-map-container iframe.event-map {
-    animation: map-appearing-2 3s;
+
+#loading-placeholder {
+    transition: 1.5s ease-in all;
+}
+#events-container {
+    transition: 1s ease-in-out all;
+}
+#loading-placeholder.ng-leave.ng-leave-active,
+#events-container.ng-enter {
+    transform: translate(0, -500vh) scale(5, 5);
+    opacity: 0;
+}
+#events-container.ng-enter {
+    transform: translate(0, 100vh) scale(1, 1);
+    opacity: 0;
+}
+#loading-placeholder.default.ng-leave,
+#events-container.ng-enter.ng-enter-active {
+    transform: translate(0, 0) scale(1, 1);
+    opacity: 1;
+}
+
+#events-container #events .event.ng-enter,
+#events-container #events .event.ng-leave {
+    transition: 1s ease-in-out all;
+}
+#events-container #events .event.ng-enter,
+#events-container #events .event.ng-leave.ng-leave-active {
+    transform: scale(1, 0);
+    height: 0%;
+    opacity: 0;
+}
+#events-container #events .event.ng-leave,
+#events-container #events .event.ng-enter.ng-enter-active {
+    transform: scale(1, 1);
+    height: 33.333334%;
+    opacity: 1;
 }

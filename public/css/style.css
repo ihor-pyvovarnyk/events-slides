@@ -1,9 +1,3 @@
-@keyframes app-appearing {
-    0%   {opacity: 0;}
-    50%  {opacity: 0;}
-    100% {opacity: 1;}
-}
-
 html {
     height: 100%;
 }
@@ -16,15 +10,14 @@ body {
 
 #app-container {
     position: relative;
-    animation: app-appearing 1.5s;
     width: 100%;
     height: 100%;
     color: #6b6b6b;
     font-family: 'PT Sans Narrow', sans-serif;
 }
 
-#app-container .slide,
-#app-container .slide .table-disp {
+#app-container #loading-placeholder,
+#app-container #events-container {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -34,97 +27,165 @@ body {
     width: 100%;
 }
 
-#app-container .slide .table-disp {
+#loading-placeholder {
     display: table;
+    font-family: 'Playfair Display', serif;
+    color: #48AB79;
 }
 
-#app-container .slide .inner {
+#loading-placeholder .inner {
     display: table-cell;
     vertical-align: middle;
     height: 100%;
     width: 100%;
 }
 
-#app-container .slide .inner .inforow .date  h1 {
-    font-family: 'Playfair Display', serif;
-    color: #ababab;
-    font-size: 7em;
-    line-height: 0.3em;
-    text-align: center;
-}
-
-#app-container .slide .inner .inforow .date h1 em {
-    font-size: 0.3em;
-}
-
-#app-container .slide .inner .otherinfo > h1 {
-    margin-top: 0;
-}
-
-#app-container .slide .inner .otherinfo .in-line-container {
-    display: inline-block;
-    width: 100%;
-    font-family: 'Playfair Display', serif;
-}
-
-#app-container .slide .inner .otherinfo .in-line-container em {
-    margin-right: 10px;
-}
-#app-container .slide .inner .otherinfo .in-line-container em:before {
-    margin-right: 3px;
-}
-
-#app-container .slide .inner .otherinfo .event-link {
-    display: inline-block;
-    margin-top: 5px;
-}
-
-#app-container .slide:not(.default) .inner {
-    padding-bottom: 50vh;
-}
-
-#app-container .slide.default {
-    font-family: 'Playfair Display', serif;
-    color: #48AB79;
-}
-
-#app-container .slide.default img.logo-img {
+#loading-placeholder .inner .logo-img {
     width: 100%;
     height: auto;
 }
 
-#app-container .slide.default h1 {
+#loading-placeholder .inner h1 {
     text-align: center;
     font-variant: small-caps;
     letter-spacing: 3px;
     font-size: 5em;
 }
 
-#app-container .slide.default .progress {
+#loading-placeholder .inner .progress {
     margin-top: 3em;
+    border: 1px solid rgba(72, 171, 121, 0.2);
+    height: 10px;
 }
 
-#app-container .slide .inner .event-map-container {
-    position: fixed;
+#loading-placeholder .inner .progress .progress-bar {
+    background-color: #48AB79;
+    width: 100%;
+}
+
+#events-container {}
+
+#events-container #head {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    background: #f5f5f5;
+    color: #48AB79;
+    font-family: 'Playfair Display', serif;
+}
+
+#events-container #head .logo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: auto;
+    padding: 10px 0 10px 20px;
+}
+
+#events-container #head .logo > * {
+    float: left;
+}
+
+#events-container #head .logo .logo-img {
+    max-height: 100%;
+    width: auto;
+    margin-right: 15px;
+}
+
+#events-container #head .logo h1 {
+    margin: 0;
+    letter-spacing: 2px;
+    font-size: 26px;
+}
+
+#events-container #head .title {
+    text-align: center;
+    margin: 0;
+    line-height: 80px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 50px;
+}
+
+#events-container #head .title .date {
+    display: inline-block;
+    float: right;
+    margin: 10px 20px 0 0;
+    vertical-align: baseline;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 60px;
+    color: #ababab;
+}
+
+#events-container #head .title .date h1 {
+    margin: 0;
+    line-height: 0.4em;
+    font-size: 1em;
+}
+
+#events-container #head .title .date em {
+    display: block;
+    margin-top: 1em;
+    font-size: 0.3em;
+    line-height: 1em
+}
+
+#events-container #events {
+    position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
+    top: 80px;
+    height: auto;
     width: 100%;
-    height: 50vh;
-    border: 0;
-    background-color: rgba(72, 171, 121, 0.6);
 }
 
-#app-container .slide .inner iframe.event-map {
+#events-container #events .event {
+    position: relative;
+    width: 100%;
+    height: 33.333334%;
+    padding: 0 10%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#events-container #events .event .table-disp {
+    display: table;
     height: 100%;
     width: 100%;
 }
 
-.progress {
-    border: 1px solid rgba(72, 171, 121, 0.2);
-    height: 7px;
+#events-container #events .event .table-disp .inner {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
 }
 
-.progress .progress-bar {
-    background-color: #48AB79;
+#events-container #events .event .info h1 {
+    margin-top: 0;
+}
+
+#events-container #events .event .info .in-line-info {
+    display: inline-block;
+    width: 100%;
+    font-family: 'Playfair Display', serif;
+}
+
+#events-container #events .event .info .in-line-info em {
+    margin-right: 10px;
+}
+
+#events-container #events .event .info .in-line-info em:before {
+    margin-right: 3px;
+}
+
+#events-container #events .event .info .event-link {
+    display: inline-block;
+    margin-top: 5px;
 }
