@@ -1,7 +1,7 @@
 {
   "name": "events-slides",
   "version": "0.0.1",
-  "description": "Forum events slides application",
+  "description": "Lviv Bookforum events",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
