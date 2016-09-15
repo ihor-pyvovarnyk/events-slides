@@ -7,11 +7,11 @@ function AppController($scope, $http, $interval, $sce) {
     $scope.now = null;
     $scope.formateDate = formateDate;
     $scope.formatTimeRange = formatTimeRange;
-    $scope.eventsList = [];
+    $scope.eventsList = getInitialEventsList();
     $scope.displayedEventsList = [];
 
     var perPage = 30;
-    var eventsUpdateInterval = 30 * 1000;
+    var eventsUpdateInterval = 30 * 1000; // Shift displayed events list
     var eventsUpdateIntervalId = 0;
     var loadAllEventsInterval = 30 * 60 * 1000; // Reload events list each half ah hour
     var displayedEventsListOffset = 0;
@@ -20,8 +20,27 @@ function AppController($scope, $http, $interval, $sce) {
     init();
 
     function init() {
+        if ($scope.eventsList.length) {
+            play();
+        }
         loadAllEvents();
         $interval(loadAllEvents, loadAllEventsInterval);
+    }
+
+    function getInitialEventsList() {
+        var events = [];
+        if (window.localStorage && localStorage.getItem('eventsList')) {
+            events = JSON.parse(localStorage.getItem('eventsList'));
+            events = modifyRawEvents(events);
+        }
+        return events;
+    }
+
+    function updateEventsList(events) {
+        $scope.eventsList = events;
+        if (window.localStorage) {
+            localStorage.setItem('eventsList', JSON.stringify(events));
+        }
     }
 
     function loadAllEvents() {
@@ -38,8 +57,7 @@ function AppController($scope, $http, $interval, $sce) {
             } else {
                 $scope.isLoading = false;
                 displayedEventsListOffset = 0;
-                $interval.cancel(eventsUpdateIntervalId);
-                $scope.eventsList = eventsList;
+                updateEventsList(eventsList);
                 play();
             }
         }
@@ -60,13 +78,6 @@ function AppController($scope, $http, $interval, $sce) {
 
     function loadEventsPage(page) {
         page = page || 1;
-        function modifyRawEvents(events) {
-            return events.map(function (event) {
-                event.startTime = moment(event.startTime);
-                event.endTime = moment(event.endTime);
-                return event;
-            });
-        }
         return $scope.isLoading ? $http({
             method: 'GET',
             url: '/api/get_events?page=' + page
@@ -79,7 +90,16 @@ function AppController($scope, $http, $interval, $sce) {
         }) : false;
     }
 
+    function modifyRawEvents(events) {
+        return events.map(function (event) {
+            event.startTime = moment(event.startTime);
+            event.endTime = moment(event.endTime);
+            return event;
+        });
+    }
+
     function play() {
+        $interval.cancel(eventsUpdateIntervalId);
         $scope.displayedEventsList = $scope.eventsList.slice(0, displayedEventsListCount);
         if ($scope.eventsList.length > displayedEventsListCount) {
             eventsUpdateIntervalId = $interval(playIteration, eventsUpdateInterval);
