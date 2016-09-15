@@ -46,7 +46,7 @@
         </header>
 
         <div id="events">
-            <div class="event" ng-repeat="event in displayedEventsList">
+            <div class="event" ng-repeat="event in displayedEventsList track by event.id">
                 <div class="table-disp">
                     <div class="inner">
                         <div class="col-sm-8 col-sm-offset-2 info">
