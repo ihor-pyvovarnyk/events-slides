@@ -48,7 +48,8 @@ function AppController($scope, $http, $interval, $sce) {
         $scope.now = moment();
         $scope.isLoading = true;
         function afterPageLoading(page, newEvents) {
-            concatEvents(newEvents);
+            newEvents = filterEvents(newEvents);
+            eventsList = eventsList.concat(newEvents);
             if (isLoadNext(newEvents)) {
                 var promise = loadEventsPage(page + 1);
                 if (promise) {
@@ -67,11 +68,27 @@ function AppController($scope, $http, $interval, $sce) {
             });
             return events.length == perPage && tomorrowEvents.length == 0;
         }
-        function concatEvents(newEvents) {
-            var todayEvents = newEvents.filter(function (event) {
-                return event.startTime.isSame($scope.now, 'day');
+        function filterEvents(newEvents) {
+            var targetLocationNames = [
+                'Палац Потоцьких',
+                'Палац мистецтв',
+                'музей книги'
+            ].map(function (name) {
+                return name.toLowerCase();
             });
-            eventsList = eventsList.concat(todayEvents);
+            return newEvents
+                .filter(function (event) {
+                    return event.startTime.isSame($scope.now, 'day');
+                })
+                .filter(function (event) {
+                    var loc = event.locationName.toLowerCase();
+                    for (var i = 0; i < targetLocationNames.length; i++) {
+                        if (loc.indexOf(targetLocationNames[i]) !== -1) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
         }
         loadEventsPage(1).then(afterPageLoading.bind(this, 1));
     }
