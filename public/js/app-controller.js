@@ -78,7 +78,8 @@ function AppController($scope, $http, $interval, $sce) {
             });
             return newEvents
                 .filter(function (event) {
-                    return event.startTime.isSame($scope.now, 'day');
+                    return event.startTime.isSame($scope.now, 'day') &&
+                           event.startTime.diff($scope.now) > 0;
                 })
                 .filter(function (event) {
                     var loc = event.locationName.toLowerCase();
