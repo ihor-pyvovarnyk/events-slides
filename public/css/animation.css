@@ -46,3 +46,24 @@
     height: 33.333334%;
     opacity: 1;
 }
+
+#loading-placeholder .progress.ng-enter,
+#loading-placeholder .progress.ng-leave {
+    transition: 1s ease-in-out all;
+}
+#loading-placeholder .progress.ng-enter,
+#loading-placeholder .progress.ng-leave.ng-leave-active {
+    width: 0;
+}
+#loading-placeholder .progress.ng-leave,
+#loading-placeholder .progress.ng-enter.ng-enter-active {
+    width: 100%;
+}
+@keyframes progress-bar-stripes-reverse {
+    from {background-position: 0 0;}
+    to {background-position: -40px 0;}
+}
+#loading-placeholder .progress.ng-enter .progress-bar,
+#loading-placeholder .progress.ng-leave .progress-bar {
+    animation: progress-bar-stripes-reverse 1s ease-in infinite;
+}
