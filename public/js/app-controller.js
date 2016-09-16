@@ -73,7 +73,7 @@ function AppController($scope, $http, $interval, $sce) {
             var targetLocationNames = [
                 'Палац Потоцьких',
                 'Палац мистецтв',
-                'музей книги'
+                'давньої української книги'
             ].map(function (name) {
                 return name.toLowerCase();
             });
