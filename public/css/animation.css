@@ -7,23 +7,25 @@
     animation: app-appearing 1.5s;
 }
 
-#loading-placeholder {
+#loading-placeholder.ng-leave,
+#events-container.ng-leave {
     transition: 1.5s ease-in all;
-}
-#events-container {
-    transition: 1s ease-in-out all;
+    transform: translate(0, 0) scale(1, 1);
+    opacity: 1;
 }
 #loading-placeholder.ng-leave.ng-leave-active,
-#events-container.ng-enter {
+#events-container.ng-leave.ng-leave-active {
     transform: translate(0, -500vh) scale(5, 5);
     opacity: 0;
 }
+#loading-placeholder.ng-enter,
 #events-container.ng-enter {
+    transition: 1s ease-in-out all;
     transform: translate(0, 100vh) scale(1, 1);
     opacity: 0;
 }
-#loading-placeholder.default.ng-leave,
-#events-container.ng-enter.ng-enter-active {
+#events-container.ng-enter.ng-enter-active,
+#loading-placeholder.ng-enter.ng-enter-active {
     transform: translate(0, 0) scale(1, 1);
     opacity: 1;
 }
