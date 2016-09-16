@@ -137,7 +137,7 @@ body {
 
 #events-container #events {
     position: absolute;
-    bottom: 0;
+    bottom: 40px;
     right: 0;
     left: 0;
     top: 80px;
@@ -169,6 +169,7 @@ body {
 
 #events-container #events .event .info h1 {
     margin-top: 0;
+    font-size: 34px;
 }
 
 #events-container #events .event .info .in-line-info {
