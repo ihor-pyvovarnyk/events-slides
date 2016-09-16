@@ -4,7 +4,7 @@ angular
 
 function AppController($scope, $http, $interval, $sce) {
     $scope.isLoading = true;
-    $scope.now = null;
+    $scope.now = moment();
     $scope.formateDate = formateDate;
     $scope.formatTimeRange = formatTimeRange;
     $scope.eventsList = getInitialEventsList();
@@ -48,7 +48,6 @@ function AppController($scope, $http, $interval, $sce) {
         $scope.now = moment();
         $scope.isLoading = true;
         function afterPageLoading(page, newEvents) {
-            newEvents = filterEvents(newEvents);
             eventsList = eventsList.concat(newEvents);
             if (isLoadNext(newEvents)) {
                 var promise = loadEventsPage(page + 1);
@@ -58,13 +57,15 @@ function AppController($scope, $http, $interval, $sce) {
             } else {
                 $scope.isLoading = false;
                 displayedEventsListOffset = 0;
+                eventsList = filterEvents(eventsList);
                 updateEventsList(eventsList);
                 play();
             }
         }
         function isLoadNext(events) {
             var tomorrowEvents = events.filter(function (event) {
-                return event.startTime.isSame($scope.now, 'day');
+                return !event.startTime.isSame($scope.now, 'day') &&
+                        event.startTime.diff($scope.now) > 0;
             });
             return events.length == perPage && tomorrowEvents.length == 0;
         }
@@ -79,7 +80,7 @@ function AppController($scope, $http, $interval, $sce) {
             return newEvents
                 .filter(function (event) {
                     return event.startTime.isSame($scope.now, 'day') &&
-                           event.startTime.diff($scope.now) > 0;
+                           event.endTime.diff($scope.now) > 0;
                 })
                 .filter(function (event) {
                     var loc = event.locationName.toLowerCase();
@@ -100,8 +101,7 @@ function AppController($scope, $http, $interval, $sce) {
             method: 'GET',
             url: '/api/get_events?page=' + page
         }).then(function (response) {
-            var newEvents = modifyRawEvents(response.data)
-            return newEvents;
+            return modifyRawEvents(response.data);
         }, function () {
             console.log('Events loading error');
             $scope.isLoading = false;
