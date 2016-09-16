@@ -56,7 +56,6 @@ function AppController($scope, $http, $interval, $sce) {
                 }
             } else {
                 $scope.isLoading = false;
-                displayedEventsListOffset = 0;
                 eventsList = filterEvents(eventsList);
                 updateEventsList(eventsList);
                 play();
@@ -118,21 +117,22 @@ function AppController($scope, $http, $interval, $sce) {
 
     function play() {
         $interval.cancel(eventsUpdateIntervalId);
-        $scope.displayedEventsList = $scope.eventsList.slice(0, displayedEventsListCount);
+        displayedEventsListOffset = displayedEventsListOffset % $scope.eventsList.length;
+        $scope.displayedEventsList = [];
+        for (var i = 0; i < displayedEventsListCount; i++) {
+            var index = (displayedEventsListOffset + i) % $scope.eventsList.length;
+            $scope.displayedEventsList.push($scope.eventsList[index]);
+        }
         if ($scope.eventsList.length > displayedEventsListCount) {
             eventsUpdateIntervalId = $interval(playIteration, eventsUpdateInterval);
         }
     }
 
     function playIteration() {
-        if (displayedEventsListOffset < $scope.eventsList.length) {
-            displayedEventsListOffset++;
-        } else {
-            displayedEventsListOffset = -1 * displayedEventsListCount;
-        }
-        $scope.displayedEventsList = $scope.displayedEventsList.slice(1, displayedEventsListCount);
-        var index = (displayedEventsListOffset + displayedEventsListCount) % $scope.eventsList.length;
+        displayedEventsListOffset = (displayedEventsListOffset + 1) % $scope.eventsList.length;
+        var index = (displayedEventsListOffset + displayedEventsListCount - 1) % $scope.eventsList.length;
         $scope.displayedEventsList.push($scope.eventsList[index]);
+        $scope.displayedEventsList.shift();
     }
 
     function formateDate(date) {
