@@ -3,19 +3,21 @@ angular
     .controller('appController', AppController);
 
 function AppController($scope, $http, $interval, $sce) {
-    $scope.isLoading = true;
-    $scope.now = moment();
-    $scope.formateDate = formateDate;
-    $scope.formatTimeRange = formatTimeRange;
-    $scope.eventsList = getInitialEventsList();
-    $scope.displayedEventsList = [];
-
     var perPage = 30;
     var eventsUpdateInterval = 30 * 1000; // Shift displayed events list
     var eventsUpdateIntervalId = 0;
     var loadAllEventsInterval = 30 * 60 * 1000; // Reload events list each half ah hour
     var displayedEventsListOffset = 0;
     var displayedEventsListCount = 3;
+    var displayedTimeRange = 1 * 60 * 60 * 1000; // 1 hour time range
+
+    $scope.isLoading = true;
+    $scope.dateTime = moment();
+    $scope.formateDate = formateDate;
+    $scope.formatTimeRange = formatTimeRange;
+    $scope.eventsList = getInitialEventsList();
+    $scope.eventsListByTimeRange = getEventsListByTimeRange();
+    $scope.displayedEventsList = [];
 
     init();
 
@@ -36,6 +38,17 @@ function AppController($scope, $http, $interval, $sce) {
         return events;
     }
 
+    function getEventsListByTimeRange() {
+        var now = moment();
+        return $scope.eventsList.filter(function (event) {
+            var startDiff = event.startTime.diff(now);
+            var endDiff = event.endTime.diff(now);
+            return (startDiff >= 0 && startDiff <= displayedTimeRange) ||
+                   (endDiff >= 0 && endDiff <= displayedTimeRange) ||
+                   (startDiff <= 0 && endDiff >= displayedTimeRange);
+        });
+    }
+
     function updateEventsList(events) {
         $scope.eventsList = events;
         if (window.localStorage) {
@@ -45,8 +58,8 @@ function AppController($scope, $http, $interval, $sce) {
 
     function loadAllEvents() {
         var eventsList = [];
-        $scope.now = moment();
         $scope.isLoading = true;
+        $scope.dateTime = moment();
         function afterPageLoading(page, newEvents) {
             eventsList = eventsList.concat(newEvents);
             if (isLoadNext(newEvents)) {
@@ -62,13 +75,15 @@ function AppController($scope, $http, $interval, $sce) {
             }
         }
         function isLoadNext(events) {
+            var now = moment();
             var tomorrowEvents = events.filter(function (event) {
-                return !event.startTime.isSame($scope.now, 'day') &&
-                        event.startTime.diff($scope.now) > 0;
+                return !event.startTime.isSame(now, 'day') &&
+                        event.startTime.diff(now) > 0;
             });
             return events.length == perPage && tomorrowEvents.length == 0;
         }
         function filterEvents(newEvents) {
+            var now = moment();
             var targetLocationNames = [
                 'Палац Потоцьких',
                 'Палац мистецтв',
@@ -78,8 +93,8 @@ function AppController($scope, $http, $interval, $sce) {
             });
             return newEvents
                 .filter(function (event) {
-                    return event.startTime.isSame($scope.now, 'day') &&
-                           event.endTime.diff($scope.now) > 0;
+                    return event.startTime.isSame(now, 'day') &&
+                           event.endTime.diff(now) > 0;
                 })
                 .filter(function (event) {
                     var loc = event.locationName.toLowerCase();
@@ -117,22 +132,30 @@ function AppController($scope, $http, $interval, $sce) {
 
     function play() {
         $interval.cancel(eventsUpdateIntervalId);
-        displayedEventsListOffset = displayedEventsListOffset % $scope.eventsList.length;
-        $scope.displayedEventsList = [];
-        for (var i = 0; i < displayedEventsListCount; i++) {
-            var index = (displayedEventsListOffset + i) % $scope.eventsList.length;
-            $scope.displayedEventsList.push($scope.eventsList[index]);
-        }
-        if ($scope.eventsList.length > displayedEventsListCount) {
-            eventsUpdateIntervalId = $interval(playIteration, eventsUpdateInterval);
-        }
+        var eventsList = $scope.eventsListByTimeRange = getEventsListByTimeRange();
+        refillDisplayedList(eventsList, false);
+        eventsUpdateIntervalId = $interval(playIteration, eventsUpdateInterval);
     }
 
     function playIteration() {
-        displayedEventsListOffset = (displayedEventsListOffset + 1) % $scope.eventsList.length;
-        var index = (displayedEventsListOffset + displayedEventsListCount - 1) % $scope.eventsList.length;
-        $scope.displayedEventsList.push($scope.eventsList[index]);
-        $scope.displayedEventsList.shift();
+        var eventsList = $scope.eventsListByTimeRange = getEventsListByTimeRange();
+        refillDisplayedList(eventsList,
+            $scope.displayedEventsList.length >= displayedEventsListCount);
+    }
+
+    function refillDisplayedList(eventsList, isNext) {
+        if (eventsList.length > displayedEventsListCount) {
+            var step = isNext ? 1 : 0;
+            displayedEventsListOffset = (displayedEventsListOffset + isNext) % eventsList.length;
+            $scope.displayedEventsList = [];
+            for (var i = 0; i < displayedEventsListCount; i++) {
+                var index = (displayedEventsListOffset + i) % eventsList.length;
+                $scope.displayedEventsList.push(eventsList[index]);
+            }
+        } else {
+            displayedEventsListOffset = 0;
+            $scope.displayedEventsList = eventsList;
+        }
     }
 
     function formateDate(date) {
